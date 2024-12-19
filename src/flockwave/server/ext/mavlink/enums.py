@@ -445,6 +445,7 @@ class MAVType(IntEnum):
     GENERIC = 0
     FIXED_WING = 1
     QUADROTOR = 2
+    COAXIAL = 3
     ANTENNA_TRACKER = 5
     GCS = 6
     HEXAROTOR = 13
@@ -490,6 +491,8 @@ class MAVType(IntEnum):
             return 6
         if self == MAVType.TRICOPTER:
             return 3
+        if self == MAVType.COAXIAL:
+            return 2
         return 4
 
 

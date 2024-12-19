@@ -1446,11 +1446,14 @@ class MAVLinkUAV(UAVBase):
             # parameter so let's just test all the motors one by one
             heartbeat = self.get_last_message(MAVMessageType.HEARTBEAT)
             motor_count = 4 if not heartbeat else MAVType(heartbeat.type).motor_count
+            motor_count_offset = 1
+            if MAVType == "COAXIAL":
+                motor_count_offset = 5
             for i in range(motor_count):
                 await self.driver.send_command_long(
                     self,
                     MAVCommand.DO_MOTOR_TEST,
-                    i + 1,  # motor instance number
+                    i + motor_count_offset,  # motor instance number
                     float(MotorTestThrottleType.PERCENT),
                     15,  # 15%
                     2,  # timeout: 2 seconds
